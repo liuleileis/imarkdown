@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/imarkdown?useUnicode=true&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+
+  freemarker:
+    allow-request-override: false
+    allow-session-override: false
+    cache: true
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: true
+    prefer-file-system-access: true
+    suffix: .ftl
+    template-loader-path: classpath:/templates
+    request-context-attribute: re
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+img:
+  location: G:\IDEA\
