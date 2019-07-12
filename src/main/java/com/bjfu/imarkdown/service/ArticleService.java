@@ -12,6 +12,8 @@ public interface ArticleService {
 
     List<Article> findByTitle(String articleTitle);
 
+    List<Article> findAllPage (Integer page, Integer limit);
+
     void update(Article article);
 
     void delete(Integer articleId);

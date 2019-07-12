@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>article list</title>
     <link rel="stylesheet" href="${re.contextPath}/layui/css/layui.css" media="all">
-    <style>
-        body{margin: 10px;}
-        .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
-    </style>
 </head>
 <body>
 
@@ -25,35 +21,30 @@
 <script>
 
 
-    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function(){
-        var laydate = layui.laydate //日期
-                ,laypage = layui.laypage //分页
+    layui.use([ 'laypage', 'layer', 'table'], function(){
+        var laypage = layui.laypage //分页
                 ,layer = layui.layer //弹层
-                ,table = layui.table //表格
-                ,carousel = layui.carousel //轮播
-                ,upload = layui.upload //上传
-                ,element = layui.element //元素操作
-                ,slider = layui.slider //滑块
+                ,table = layui.table;//表格
 
 
         //执行一个 table 实例
         table.render({
             elem: '#demo'
-            ,height: 420
-            ,url: '/demo/table/user/' //数据接口
-            ,title: '用户表'
+            ,height: 700
+            ,url: '/imarkdown/show-all' //数据接口
+            ,title: '文章列表'
             ,page: true //开启分页
             ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
             ,totalRow: true //开启合计行
             ,cols: [[ //表头
-                {type: 'checkbox', fixed: 'left'}
-                ,{field: 'articleId', title: '编号', width:80, sort: true, fixed: 'left', totalRowText: '合计：'}
-                ,{field: 'articleTitle', title: '标题', width:80}
-                ,{field: 'articleContent', title: '内容', width: 90, sort: true, totalRow: true}
-                ,{field: 'articleHtml', title: 'HTML', width:80, sort: true}
-                ,{field: 'articleAuthor', title: '作者', width: 80, sort: true, totalRow: true}
-                ,{field: 'articleTime', title: '时间', width:150}
-                ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+                {type: 'checkbox', width:'5%', fixed: 'left'}
+                ,{field: 'articleId', title: '编号', width:'10%', sort: true, fixed: 'left'}
+                ,{field: 'articleTitle', title: '标题', width:'40%'}
+                // ,{field: 'articleContent', title: '内容', width: 90}
+                // ,{field: 'articleHtml', title: 'HTML', width:80}
+                ,{field: 'articleAuthor', title: '作者', width: '15%'}
+                ,{field: 'articleTime', title: '时间', width:'15%', sort: true}
+                ,{fixed: 'right', title: '操作',width: "15%", align:'center', toolbar: '#barDemo'}
             ]]
         });
 
@@ -71,7 +62,8 @@
                     } else if(data.length > 1){
                         layer.msg('只能同时编辑一个');
                     } else {
-                        layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+                        console.log(data[0].articleId);
+                        layui.jquery.get("/imarkdown/edit/" + data[0].articleId);
                     }
                     break;
                 case 'delete':
@@ -104,10 +96,13 @@
 
         //分页
         laypage.render({
-            elem: 'pageDemo' //分页容器的id
+            elem: 'demo' //分页容器的id
             ,count: 100 //总页数
             ,skin: '#1E9FFF' //自定义选中色值
-            //,skip: true //开启跳页
+            ,skip: true //开启跳页
+            ,id:'article_id'
+            ,limit:5
+            ,limits:[3,5,10,15]
             ,jump: function(obj, first){
                 if(!first){
                     layer.msg('第'+ obj.curr +'页', {offset: 'b'});

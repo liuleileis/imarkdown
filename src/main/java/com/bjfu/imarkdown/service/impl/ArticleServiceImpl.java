@@ -20,6 +20,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> findAllPage(Integer page, Integer limit){
+        int start = (page - 1) * limit;
+        return articleDao.findAllArticlePage(start, limit);
+    }
+
+    @Override
     public List<Article> findByTitle(String articleTitle) {
         return articleDao.findArticleByTitle(articleTitle);
     }
