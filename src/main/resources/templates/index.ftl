@@ -32,17 +32,22 @@
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL: "/image",
             emoji: true,
+            tex:true,
             //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
             saveHTMLToTextarea: true
             // previewTheme : "dark"
         });
+        editormd.katexURL = {
+            js  : "/katex/katex",
+            css : "/katex/katex"
+        };
     });
 
     function saveHtml() {
         // console.log($("#text").text());
         console.log($("#textContent").text());
         $.ajax({
-            url: "${re.contextPath}/imarkdown",
+            url: "${re.contextPath}/imarkdown/insert",
             type: "post",
             async: true,
             data: {

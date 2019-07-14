@@ -30,6 +30,10 @@
         flowChart       : true,  // 默认不解析
         sequenceDiagram : true  // 默认不解析
     });
+    editormd.katexURL = {
+        js  : "/katex/katex",
+        css : "/katex/katex"
+    };
 </script>
 </body>
 </html>
